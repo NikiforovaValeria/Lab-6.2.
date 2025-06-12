@@ -6,7 +6,7 @@
 # по третьей - 2 работникам независимо от пола. Сформировать все возможные варианты заполнения вакантных мест,
 # если имеются 6 претендентов: 3 женщины и 3 мужчины.
 
-import time
+from timeit import default_timer
 from itertools import combinations
 # Претенденты с характеристиками (имя, опыт, уровень квалификации)
 women = [
@@ -22,7 +22,7 @@ men = [
 
 # Вариант 1: Алгоритмический метод с ограничениями и целевой функцией
 print("\nВариант 1: Алгоритмический")
-start_time = time.time()
+start_time = default_timer()
 all_combinations_manual = []
 for women_pair in combinations(women, 2):
     # Проверяем, удовлетворяет ли каждая женщина в паре условию : минимум 5 лет опыта
@@ -39,18 +39,18 @@ for women_pair in combinations(women, 2):
                 'специальность 3': [p['name'] for p in remaining],
                 'total_qualification': total_qualification
             })
-end_time = time.time()
+end_time = default_timer()
 # Поиск оптимального решения — максимальная квалификация на специальности 2
 best_manual = max(all_combinations_manual, key=lambda x: x['total_qualification'])
 print(f"Всего комбинаций (алгоритмический): {len(all_combinations_manual)}")
 for idx, combo in enumerate(all_combinations_manual, 1):
     print(f"{idx}. {combo}")
 print(f"\nЛучшая комбинация (алгоритмический): {best_manual}")
-print(f"Время выполнения (алгоритмический): {end_time - start_time:.6f} секунд\n")
+print(f"Время выполнения (алгоритмический): {(end_time - start_time)*10} секунд\n")
 
 # Вариант 2: С помощью функций Питона с ограничениями и целевой функцией
 print("\nВариант 2: Через itertools")
-start_time = time.time()
+start_time = default_timer()
 all_combinations_itertools = []
 for w_comb in combinations(women, 2):
     # Условие минимум 5 лет опыта
@@ -67,10 +67,10 @@ for w_comb in combinations(women, 2):
                 'специальность 3': [p['name'] for p in rem],
                 'total_qualification': total_qualification
             })
-end_time = time.time()
+end_time = default_timer()
 best_itertools = max(all_combinations_itertools, key=lambda x: x['total_qualification'])
 print(f"Всего комбинаций (itertools): {len(all_combinations_itertools)}")
 for idx, combo in enumerate(all_combinations_itertools, 1):
     print(f"{idx}. {combo}")
 print(f"\nЛучшая комбинация (itertools): {best_itertools}")
-print(f"Время выполнения (itertools): {end_time - start_time:.6f} секунд")
+print(f"Время выполнения (itertools): {(end_time - start_time)*10} секунд")
